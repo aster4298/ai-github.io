@@ -25,12 +25,15 @@ class AIGitHub {
         this.setupChat();
         this.setupAnimations();
         this.setupScrollEffects();
+        this.setupRepositoryFilter();
         this.simulateRealtimeUpdates();
     }
     
     setupSearch() {
         const searchInput = document.getElementById('search-input');
         const suggestions = document.getElementById('search-suggestions');
+        
+        if (!searchInput || !suggestions) return;
         
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
@@ -56,42 +59,45 @@ class AIGitHub {
         
         if (filtered.length > 0) {
             container.innerHTML = filtered.map(suggestion => `
-                <div class="suggestion-item" onclick="this.selectSuggestion('${suggestion}')">
+                <div class="suggestion-item" onclick="window.selectSuggestion('${suggestion}')">
                     <i class="fas fa-search"></i>
                     <span>${suggestion}</span>
                 </div>
             `).join('');
             
-            container.style.display = 'block';
-            container.style.position = 'absolute';
-            container.style.top = '100%';
-            container.style.left = '0';
-            container.style.right = '0';
-            container.style.background = 'var(--dark-card)';
-            container.style.border = '1px solid var(--dark-border)';
-            container.style.borderRadius = '0.5rem';
-            container.style.marginTop = '0.5rem';
-            container.style.maxHeight = '200px';
-            container.style.overflowY = 'auto';
-            container.style.zIndex = '1000';
-            container.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.5)';
+            Object.assign(container.style, {
+                display: 'block',
+                position: 'absolute',
+                top: '100%',
+                left: '0',
+                right: '0',
+                background: 'var(--dark-card)',
+                border: '1px solid var(--dark-border)',
+                borderRadius: '0.5rem',
+                marginTop: '0.5rem',
+                maxHeight: '200px',
+                overflowY: 'auto',
+                zIndex: '1000',
+                boxShadow: '0 10px 25px rgba(0, 0, 0, 0.5)'
+            });
         } else {
             container.style.display = 'none';
         }
     }
     
     selectSuggestion(suggestion) {
-        document.getElementById('search-input').value = suggestion;
-        document.getElementById('search-suggestions').style.display = 'none';
-        // Simulate search action
+        const searchInput = document.getElementById('search-input');
+        const suggestions = document.getElementById('search-suggestions');
+        
+        if (searchInput) searchInput.value = suggestion;
+        if (suggestions) suggestions.style.display = 'none';
+        
         this.showSearchResults(suggestion);
     }
     
     showSearchResults(query) {
-        // Simulate search results with notification
         this.showNotification(`Searching for: ${query}`, 'info');
         
-        // In a real app, this would trigger actual search functionality
         setTimeout(() => {
             this.showNotification(`Found 42 repositories matching "${query}"`, 'success');
         }, 1500);
@@ -104,6 +110,8 @@ class AIGitHub {
         const chatInput = document.getElementById('chat-input');
         const chatSend = document.getElementById('chat-send');
         const chatMessages = document.getElementById('chat-messages');
+        
+        if (!chatTrigger || !chatWidget || !chatClose || !chatInput || !chatSend || !chatMessages) return;
         
         chatTrigger.addEventListener('click', () => {
             chatWidget.classList.add('active');
@@ -172,6 +180,8 @@ class AIGitHub {
             'documentation': "I can automatically generate documentation for your functions and classes. Just point me to your repository!",
             'test': "I can help you write unit tests and suggest test cases for better code coverage. What's your testing framework?",
             'deploy': "I can assist with deployment configurations and CI/CD pipeline setup. Are you using Docker or traditional deployment?",
+            'react': "I see you're interested in React! I can help with component optimization, state management, and performance improvements.",
+            'javascript': "JavaScript is my specialty! I can help with ES6+ features, async/await patterns, and modern development practices.",
             'default': "I'm here to help with code analysis, security scanning, performance optimization, and more. What would you like to work on?"
         };
         
@@ -200,16 +210,13 @@ class AIGitHub {
     }
     
     setupAnimations() {
-        // Typing animation for hero text
         this.typeWriter();
-        
-        // Animate feature cards on scroll
         this.observeElements('.feature-card');
         this.observeElements('.repo-card');
     }
     
     typeWriter() {
-        const text = "Code with AI Intelligence";
+        const text = "AI Intelligence";
         const element = document.querySelector('.gradient-text');
         if (!element) return;
         
@@ -247,6 +254,8 @@ class AIGitHub {
     setupScrollEffects() {
         window.addEventListener('scroll', () => {
             const navbar = document.querySelector('.navbar');
+            if (!navbar) return;
+            
             if (window.scrollY > 100) {
                 navbar.style.background = 'rgba(15, 23, 42, 0.98)';
                 navbar.style.backdropFilter = 'blur(20px)';
@@ -255,6 +264,46 @@ class AIGitHub {
                 navbar.style.backdropFilter = 'blur(10px)';
             }
         });
+    }
+    
+    setupRepositoryFilter() {
+        const filterInput = document.getElementById('filter-input');
+        const filterSelect = document.getElementById('filter-select');
+        const repoGrid = document.getElementById('repo-grid');
+        
+        if (!filterInput || !filterSelect || !repoGrid) return;
+        
+        const filterRepositories = () => {
+            const searchTerm = filterInput.value.toLowerCase();
+            const categoryFilter = filterSelect.value;
+            const repoCards = repoGrid.querySelectorAll('.repo-card');
+            
+            repoCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('.repo-description').textContent.toLowerCase();
+                const badges = card.querySelectorAll('.badge');
+                
+                let matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+                let matchesCategory = categoryFilter === 'all';
+                
+                if (!matchesCategory) {
+                    badges.forEach(badge => {
+                        if (badge.classList.contains(categoryFilter)) {
+                            matchesCategory = true;
+                        }
+                    });
+                }
+                
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        };
+        
+        filterInput.addEventListener('input', filterRepositories);
+        filterSelect.addEventListener('change', filterRepositories);
     }
     
     simulateRealtimeUpdates() {
@@ -271,15 +320,14 @@ class AIGitHub {
     
     updateRepositoryStats() {
         const statElements = document.querySelectorAll('.repo-stats .stat');
-        statElements.forEach((stat, index) => {
-            if (Math.random() > 0.7) { // 30% chance to update
+        statElements.forEach((stat) => {
+            if (Math.random() > 0.7) {
                 const icon = stat.querySelector('i');
                 if (icon && icon.classList.contains('fa-star')) {
-                    const currentValue = parseInt(stat.textContent.trim());
+                    const currentValue = parseInt(stat.textContent.trim()) || 0;
                     const newValue = currentValue + Math.floor(Math.random() * 3) + 1;
                     stat.innerHTML = `<i class="fas fa-star"></i> ${newValue}`;
                     
-                    // Add visual feedback
                     stat.style.color = 'var(--success-color)';
                     setTimeout(() => {
                         stat.style.color = '';
@@ -298,15 +346,14 @@ class AIGitHub {
             { icon: 'fas fa-check-circle', text: 'All tests passing', color: 'var(--success-color)' }
         ];
         
-        insightElements.forEach((element, index) => {
-            if (Math.random() > 0.8) { // 20% chance to update
+        insightElements.forEach((element) => {
+            if (Math.random() > 0.8) {
                 const randomUpdate = updates[Math.floor(Math.random() * updates.length)];
                 element.innerHTML = `
                     <i class="${randomUpdate.icon}" style="color: ${randomUpdate.color}"></i>
                     <span>${randomUpdate.text}</span>
                 `;
                 
-                // Add pulse animation
                 element.style.animation = 'pulse 0.5s ease';
                 setTimeout(() => {
                     element.style.animation = '';
@@ -316,6 +363,10 @@ class AIGitHub {
     }
     
     showNotification(message, type = 'info', duration = 3000) {
+        // Remove existing notifications of same type
+        const existingNotifications = document.querySelectorAll(`.notification-${type}`);
+        existingNotifications.forEach(notification => notification.remove());
+        
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
         notification.innerHTML = `
@@ -326,71 +377,77 @@ class AIGitHub {
             </button>
         `;
         
-        // Add notification styles if not already present
-        if (!document.querySelector('#notification-styles')) {
-            const style = document.createElement('style');
-            style.id = 'notification-styles';
-            style.textContent = `
-                .notification {
-                    position: fixed;
-                    top: 100px;
-                    right: 2rem;
-                    background: var(--dark-card);
-                    border: 1px solid var(--dark-border);
-                    border-radius: 0.5rem;
-                    padding: 1rem;
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    color: var(--text-primary);
-                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-                    z-index: 10000;
-                    animation: slideInRight 0.3s ease;
-                    max-width: 400px;
-                }
-                
-                .notification-info { border-left: 4px solid var(--accent-color); }
-                .notification-success { border-left: 4px solid var(--success-color); }
-                .notification-warning { border-left: 4px solid var(--warning-color); }
-                .notification-error { border-left: 4px solid var(--danger-color); }
-                .notification-ai { border-left: 4px solid var(--primary-color); }
-                
-                .notification button {
-                    background: none;
-                    border: none;
-                    color: var(--text-muted);
-                    cursor: pointer;
-                    padding: 0.25rem;
-                    margin-left: auto;
-                }
-                
-                @keyframes slideInRight {
-                    from {
-                        transform: translateX(100%);
-                        opacity: 0;
-                    }
-                    to {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                }
-                
-                @keyframes pulse {
-                    0%, 100% { transform: scale(1); }
-                    50% { transform: scale(1.05); }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-        
+        this.addNotificationStyles();
         document.body.appendChild(notification);
         
-        // Auto remove after duration
         setTimeout(() => {
             if (notification.parentElement) {
                 notification.remove();
             }
         }, duration);
+    }
+    
+    addNotificationStyles() {
+        if (document.querySelector('#notification-styles')) return;
+        
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = `
+            .notification {
+                position: fixed;
+                top: 100px;
+                right: 2rem;
+                background: var(--dark-card);
+                border: 1px solid var(--dark-border);
+                border-radius: 0.5rem;
+                padding: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                color: var(--text-primary);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+                z-index: 10000;
+                animation: slideInRight 0.3s ease;
+                max-width: 400px;
+            }
+            
+            .notification-info { border-left: 4px solid var(--accent-color); }
+            .notification-success { border-left: 4px solid var(--success-color); }
+            .notification-warning { border-left: 4px solid var(--warning-color); }
+            .notification-error { border-left: 4px solid var(--danger-color); }
+            .notification-ai { border-left: 4px solid var(--primary-color); }
+            
+            .notification button {
+                background: none;
+                border: none;
+                color: var(--text-muted);
+                cursor: pointer;
+                padding: 0.25rem;
+                margin-left: auto;
+                border-radius: 0.25rem;
+            }
+            
+            .notification button:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+            }
+        `;
+        document.head.appendChild(style);
     }
     
     getNotificationIcon(type) {
@@ -405,42 +462,79 @@ class AIGitHub {
     }
 }
 
-// Initialize the application when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new AIGitHub();
-});
-
-// Add some global utility functions
+// Global utility functions
 window.selectSuggestion = function(suggestion) {
-    document.getElementById('search-input').value = suggestion;
-    document.getElementById('search-suggestions').style.display = 'none';
+    const aiGithub = window.aiGithubInstance;
+    if (aiGithub) {
+        aiGithub.selectSuggestion(suggestion);
+    }
 };
 
+window.scrollToSection = function(sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+};
+
+window.openDemoModal = function() {
+    const aiGithub = window.aiGithubInstance;
+    if (aiGithub) {
+        aiGithub.showNotification('Demo video coming soon! 🎬', 'info');
+    }
+};
+
+window.createNewRepo = function() {
+    const aiGithub = window.aiGithubInstance;
+    if (aiGithub) {
+        aiGithub.showNotification('New repository creation wizard launching...', 'success');
+    }
+};
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', () => {
+    window.aiGithubInstance = new AIGitHub();
+});
+
 // Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     });
 });
 
-// Add keyboard shortcuts
+// Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
     // Ctrl/Cmd + K for search focus
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
-        document.getElementById('search-input').focus();
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) searchInput.focus();
     }
     
     // Ctrl/Cmd + / for AI chat
     if ((e.ctrlKey || e.metaKey) && e.key === '/') {
         e.preventDefault();
-        document.getElementById('chat-trigger').click();
+        const chatTrigger = document.getElementById('chat-trigger');
+        if (chatTrigger) chatTrigger.click();
+    }
+    
+    // Escape to close chat
+    if (e.key === 'Escape') {
+        const chatWidget = document.getElementById('ai-chat');
+        const chatTrigger = document.getElementById('chat-trigger');
+        if (chatWidget && chatWidget.classList.contains('active')) {
+            chatWidget.classList.remove('active');
+            if (chatTrigger) chatTrigger.classList.remove('hidden');
+        }
     }
 });
