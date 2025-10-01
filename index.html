@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI GitHub - Code Intelligence Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <i class="fas fa-robot"></i>
+                    <span>AI GitHub</span>
+                </div>
+                <div class="nav-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search repositories, code, AI insights..." id="search-input">
+                    <div class="search-suggestions" id="search-suggestions"></div>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-brain"></i>
+                    AI Tools
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-code-branch"></i>
+                    Pull requests
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Issues
+                </a>
+                <div class="profile-dropdown">
+                    <img src="https://github.com/github.png" alt="Profile" class="profile-avatar">
+                    <div class="dropdown-content">
+                        <a href="#">Your profile</a>
+                        <a href="#">Your repositories</a>
+                        <a href="#">AI Insights</a>
+                        <a href="#">Settings</a>
+                        <hr>
+                        <a href="#">Sign out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Code with <span class="gradient-text">AI Intelligence</span></h1>
+                <p>Experience the future of collaborative development with AI-powered code analysis, intelligent suggestions, and automated workflows.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Start Building
+                    </button>
+                    <button class="btn-secondary">
+                        <i class="fas fa-play"></i>
+                        Watch Demo
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-editor-mock">
+                    <div class="editor-header">
+                        <div class="editor-tabs">
+                            <span class="tab active">main.py</span>
+                            <span class="tab">utils.js</span>
+                            <span class="tab">README.md</span>
+                        </div>
+                        <div class="ai-assistant">
+                            <i class="fas fa-magic"></i>
+                            AI Assistant
+                        </div>
+                    </div>
+                    <div class="editor-content">
+                        <div class="code-line">
+                            <span class="line-number">1</span>
+                            <span class="code">def <span class="keyword">analyze_code</span>(repository):</span>
+                            <div class="ai-suggestion">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>AI suggests: Add error handling</span>
+                            </div>
+                        </div>
+                        <div class="code-line">
+                            <span class="line-number">2</span>
+                            <span class="code">    <span class="comment"># AI-powered code analysis</span></span>
+                        </div>
+                        <div class="code-line">
+                            <span class="line-number">3</span>
+                            <span class="code">    results = <span class="string">ai_engine.scan(repository)</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>AI-Powered Development Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Smart Code Analysis</h3>
+                    <p>AI analyzes your codebase for bugs, performance issues, and security vulnerabilities in real-time.</p>
+                    <div class="feature-demo">
+                        <div class="demo-progress">
+                            <span>Analyzing repository...</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Intelligent Autocomplete</h3>
+                    <p>Context-aware code suggestions that understand your project structure and coding patterns.</p>
+                    <div class="autocomplete-demo">
+                        <div class="suggestion-item active">
+                            <i class="fas fa-function"></i>
+                            processUserData(userData)
+                        </div>
+                        <div class="suggestion-item">
+                            <i class="fas fa-variable"></i>
+                            processUserInput()
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>AI Code Review</h3>
+                    <p>Automated code reviews with detailed feedback on best practices, maintainability, and optimization.</p>
+                    <div class="review-demo">
+                        <div class="review-comment">
+                            <i class="fas fa-robot"></i>
+                            <span>Consider using async/await for better readability</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Project Insights</h3>
+                    <p>Get AI-generated insights about your project's health, team productivity, and code quality trends.</p>
+                    <div class="insight-chart">
+                        <div class="chart-bar" style="height: 60%"></div>
+                        <div class="chart-bar" style="height: 80%"></div>
+                        <div class="chart-bar" style="height: 45%"></div>
+                        <div class="chart-bar" style="height: 90%"></div>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security Scanner</h3>
+                    <p>Advanced AI-powered security scanning that detects vulnerabilities and suggests fixes automatically.</p>
+                    <div class="security-status">
+                        <div class="status-item safe">
+                            <i class="fas fa-check"></i>
+                            <span>No vulnerabilities found</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Auto Documentation</h3>
+                    <p>AI automatically generates comprehensive documentation for your code, including examples and usage guidelines.</p>
+                    <div class="doc-preview">
+                        <div class="doc-line">
+                            <span class="doc-tag">@param</span>
+                            <span class="doc-text">data - User input data</span>
+                        </div>
+                        <div class="doc-line">
+                            <span class="doc-tag">@returns</span>
+                            <span class="doc-text">Processed result object</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Repository Dashboard -->
+    <section class="dashboard">
+        <div class="container">
+            <h2>Your AI-Enhanced Repositories</h2>
+            <div class="dashboard-controls">
+                <div class="search-filter">
+                    <input type="text" placeholder="Filter repositories..." class="filter-input">
+                    <select class="filter-select">
+                        <option>All repositories</option>
+                        <option>AI Analyzed</option>
+                        <option>High Security</option>
+                        <option>Needs Attention</option>
+                    </select>
+                </div>
+                <button class="btn-new-repo">
+                    <i class="fas fa-plus"></i>
+                    New Repository
+                </button>
+            </div>
+            <div class="repo-grid">
+                <div class="repo-card">
+                    <div class="repo-header">
+                        <h3>
+                            <i class="fas fa-code-branch"></i>
+                            ai-chatbot-assistant
+                        </h3>
+                        <div class="repo-badges">
+                            <span class="badge ai">AI Enhanced</span>
+                            <span class="badge public">Public</span>
+                        </div>
+                    </div>
+                    <p class="repo-description">Intelligent chatbot with natural language processing capabilities</p>
+                    <div class="repo-stats">
+                        <span class="stat">
+                            <i class="fas fa-star"></i>
+                            234
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-code-branch"></i>
+                            45
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-circle javascript"></i>
+                            JavaScript
+                        </span>
+                    </div>
+                    <div class="ai-insights">
+                        <div class="insight-item">
+                            <i class="fas fa-chart-line text-green"></i>
+                            <span>Code quality: 94%</span>
+                        </div>
+                        <div class="insight-item">
+                            <i class="fas fa-shield-alt text-green"></i>
+                            <span>Security: High</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="repo-card">
+                    <div class="repo-header">
+                        <h3>
+                            <i class="fas fa-code-branch"></i>
+                            ml-data-analyzer
+                        </h3>
+                        <div class="repo-badges">
+                            <span class="badge ai">AI Enhanced</span>
+                            <span class="badge private">Private</span>
+                        </div>
+                    </div>
+                    <p class="repo-description">Machine learning toolkit for data analysis and visualization</p>
+                    <div class="repo-stats">
+                        <span class="stat">
+                            <i class="fas fa-star"></i>
+                            156
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-code-branch"></i>
+                            23
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-circle python"></i>
+                            Python
+                        </span>
+                    </div>
+                    <div class="ai-insights">
+                        <div class="insight-item">
+                            <i class="fas fa-chart-line text-orange"></i>
+                            <span>Code quality: 87%</span>
+                        </div>
+                        <div class="insight-item">
+                            <i class="fas fa-exclamation-triangle text-orange"></i>
+                            <span>2 suggestions</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="repo-card">
+                    <div class="repo-header">
+                        <h3>
+                            <i class="fas fa-code-branch"></i>
+                            web-dev-toolkit
+                        </h3>
+                        <div class="repo-badges">
+                            <span class="badge new">New</span>
+                            <span class="badge public">Public</span>
+                        </div>
+                    </div>
+                    <p class="repo-description">Collection of web development utilities and components</p>
+                    <div class="repo-stats">
+                        <span class="stat">
+                            <i class="fas fa-star"></i>
+                            89
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-code-branch"></i>
+                            12
+                        </span>
+                        <span class="stat">
+                            <i class="fas fa-circle react"></i>
+                            React
+                        </span>
+                    </div>
+                    <div class="ai-insights">
+                        <div class="insight-item">
+                            <i class="fas fa-sync-alt text-blue"></i>
+                            <span>Analyzing...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Chat Assistant -->
+    <div class="ai-chat-widget" id="ai-chat">
+        <div class="chat-header">
+            <i class="fas fa-robot"></i>
+            <span>AI Assistant</span>
+            <button class="chat-close" id="chat-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message ai-message">
+                <i class="fas fa-robot"></i>
+                <span>Hi! I'm your AI coding assistant. How can I help you today?</span>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="Ask me anything about your code..." id="chat-input">
+            <button id="chat-send">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="chat-trigger" id="chat-trigger">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>AI GitHub</h4>
+                    <p>The future of intelligent code collaboration</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Features</h4>
+                    <a href="#">AI Code Analysis</a>
+                    <a href="#">Smart Suggestions</a>
+                    <a href="#">Security Scanning</a>
+                    <a href="#">Auto Documentation</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="#">Documentation</a>
+                    <a href="#">API Reference</a>
+                    <a href="#">Tutorials</a>
+                    <a href="#">Community</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AI GitHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
